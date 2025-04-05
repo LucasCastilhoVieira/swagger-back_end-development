@@ -1,4 +1,3 @@
-import time
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 import threading
@@ -6,8 +5,20 @@ import requests
 import json
 import threading
 import re
-open_ia_key = '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'
+import sys
+import os
 
+def caminho_arquivo(nome):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, nome)  
+    return nome  
+
+
+with open(caminho_arquivo("open_key.txt"), "r") as f:
+    open_ia_key = f.read().strip()
+
+    
+            
 class APISwaggerDevelopment:
     def __init__(self, root):
         self.root = root
@@ -540,7 +551,7 @@ class APISwaggerDevelopment:
         
             
     def enviar_para_openrouter(self, prompt):
-        
+
         headers = {
             "Authorization": f"Bearer {open_ia_key}",
             "Content-Type": "application/json",
