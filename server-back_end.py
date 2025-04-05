@@ -61,7 +61,6 @@ class APISwaggerDevelopment:
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        # Base da API
         base_frame = tk.Frame(self.routes_container, pady=10, bg=bg_main)
         base_frame.pack(fill="x", padx=20)
 
@@ -400,6 +399,7 @@ class APISwaggerDevelopment:
             pretty = json.dumps(json_obj, indent=4, ensure_ascii=False)
             self.highlight_json(text_area, pretty)
         except Exception:
+            
             # Texto simples, aplica verde
             text_area.insert("1.0", content)
             text_area.tag_config("green_text", foreground="#00ff90")
@@ -446,7 +446,7 @@ class APISwaggerDevelopment:
             original_text_widget.delete("1.0", tk.END)
             original_text_widget.insert("1.0", novo_texto)
 
-            # 🖍️ Aplica cor no campo original ao salvar
+  
             self.highlight_json_live(original_text_widget)
             popup.destroy()
 
@@ -578,7 +578,7 @@ class APISwaggerDevelopment:
 
         texto = ia_response_area.get("1.0", tk.END)
 
-        txt.delete("1.0", tk.END)  # 👈 ESSA LINHA resolve o problema
+        txt.delete("1.0", tk.END)  
         txt.insert("1.0", texto)
         self.colorir_resposta_ia(txt)
 
@@ -676,10 +676,10 @@ class APISwaggerDevelopment:
             pass  
 
     def colorir_resposta_ia(self, widget):
-        widget.tag_config("chave", foreground="#FFEB3B")  # amarelo
-        widget.tag_config("valor", foreground="#4CAF50")  # verde
-        widget.tag_config("erro", foreground="#F44336")   # vermelho
-        widget.tag_config("info", foreground="#2196F3")   # azul
+        widget.tag_config("chave", foreground="#FFEB3B") 
+        widget.tag_config("valor", foreground="#4CAF50") 
+        widget.tag_config("erro", foreground="#F44336")  
+        widget.tag_config("info", foreground="#2196F3")  
 
         texto = widget.get("1.0", tk.END)
 
@@ -704,10 +704,10 @@ class APISwaggerDevelopment:
         widget.insert("1.0", texto)
 
         # Cores vivas
-        widget.tag_config("titulo", foreground="#FFD700", font=("Courier", 12, "bold"))  # Dourado
-        widget.tag_config("solucao", foreground="#00FF00", font=("Courier", 11))         # Verde neon
-        widget.tag_config("erro", foreground="#FF4C4C", font=("Courier", 11, "bold"))    # Vermelho forte
-        widget.tag_config("info", foreground="#00E5FF", font=("Courier", 11))            # Azul ciano
+        widget.tag_config("titulo", foreground="#FFD700", font=("Courier", 12, "bold"))  
+        widget.tag_config("solucao", foreground="#00FF00", font=("Courier", 11))        
+        widget.tag_config("erro", foreground="#FF4C4C", font=("Courier", 11, "bold"))    
+        widget.tag_config("info", foreground="#00E5FF", font=("Courier", 11))          
 
         palavras_chave = {
             "Erro": "erro",
@@ -757,11 +757,11 @@ class APISwaggerDevelopment:
         raw = raw.strip()
 
         def adicionar_aspas_chaves(texto):
-            # Coloca aspas nas chaves que estão sem
+
             return re.sub(r'(?<!")(\b[a-zA-Z_][\w\-]*\b)(?=\s*:)', r'"\1"', texto)
 
         def corrigir_virgulas(texto):
-            # Adiciona vírgula entre pares chave-valor
+         
             texto = re.sub(r'(".*?")\s+(".*?"\s*:)', r'\1,\2', texto)
             texto = re.sub(r'(\d+)\s+(".*?"\s*:)', r'\1,\2', texto)
             return texto
@@ -790,10 +790,10 @@ class APISwaggerDevelopment:
 
     def auto_fechar(self, event, widget, char):
         try:
-            # Mapeamento de pares
+
             pair = self.char_map[char]
 
-            # Se há seleção, envolve o trecho com os pares
+       
             try:
                 start = widget.index("sel.first")
                 end = widget.index("sel.last")
@@ -802,9 +802,8 @@ class APISwaggerDevelopment:
                 widget.insert(start, f"{char}{texto_selecionado}{pair}")
                 return "break"
             except tk.TclError:
-                pass  # Sem seleção
+                pass
 
-            # Se não há seleção, insere os dois caracteres e move o cursor para o meio
             pos = widget.index(tk.INSERT)
             widget.insert(pos, f"{char}{pair}")
             widget.mark_set(tk.INSERT, f"{pos}+1c")
